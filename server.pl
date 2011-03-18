@@ -11,10 +11,13 @@ use Net::SMTP::Server::Client;
 my $port = 2525;
 my $server = new Net::SMTP::Server('localhost', $port) ||
     croak("Unable to handle client connection: $!\n");
+print "Listening on localhost:$port\n";
 
 while(my $conn = $server->accept()) {
         # We can perform all sorts of checks here for spammers, ACLs,
         # and other useful stuff to check on a connection.
+
+	print "Got Connection\n";
 
         # Handle the client's connection and spawn off a new parser.
         # This can/should be a fork() or a new thread,
@@ -24,7 +27,14 @@ while(my $conn = $server->accept()) {
 
         # Process the client.  This command will block until
         # the connecting client completes the SMTP transaction.
-        $client->process || next;
+        if (!$client->process) {
+		print "Client aborted connection\n";
+		next;
+	}
+	else {
+		print "Client completed connection\n";
+		print "Message: ", $client->{MSG}, "\n";
+	}
 
         # In this simple server, we're just relaying everything
         # to a server.  If a real server were implemented, you
@@ -39,7 +49,7 @@ while(my $conn = $server->accept()) {
 
 sub log_message {
         my ($client, $msg) = @_;
-        open(my $fd, "| php enter-message.php") 
+        open(my $fd, "| php ./enter-message.php") 
                 or die("Failed executing enter-message.php.  Check that the path to php is in the PATH variable");
         print $fd $msg or die("Failed writing");
         close $fd;
