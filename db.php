@@ -22,7 +22,7 @@ class Logmail_Db {
     }
 
     public function query($sql) {
-        return $this->db->query($sql, $params);
+        return $this->db->query($sql);
     }
 
     public function find($table, $conditions=array()) {
