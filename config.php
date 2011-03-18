@@ -3,7 +3,7 @@
 $dbconfig = array(
     'host' => 'localhost',
     'user' => 'root',
-    'pass' => 'root',
+    'pass' => '',
     'db' => 'logmail',
     'driver' => 'mysql',
 );
