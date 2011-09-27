@@ -6,13 +6,18 @@ class Logmail_Db {
     protected $class_prefix = "Logmail_";
 
     public static function connect($config) {
-        $dsn = "{$config['driver']}:host={$config['host']};dbname={$config['db']}";
-        $pdo = new PDO($dsn, $config['user'], $config['pass']);
+        if ($config['driver'] === 'sqlite') {
+            $dsn = "sqlite:" . $config['db'];
+            $pdo = new PDO($dsn);
+        } else {
+            $dsn = "{$config['driver']}:host={$config['host']};dbname={$config['db']}";
+            $pdo = new PDO($dsn, $config['user'], $config['pass']);
+        }
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $class = __CLASS__;
         return new $class($pdo);
     }
-    
+
     public function __construct($db) {
         $this->db = $db;
     }
@@ -33,7 +38,7 @@ class Logmail_Db {
             $fields = "*";
         } else if (is_array($fields)) {
             $fields = $this->prepareFields($fields);
-        } else { 
+        } else {
             throw new Exception("Invalid type for fields: ".get_class($fields));
         }
         $sql = "SELECT {$fields}, '$table' as __table FROM `$table`";
@@ -76,7 +81,7 @@ class Logmail_Db {
         foreach ($obj as $key => $val) {
             $stmt->bindParam(':'.$key, $val);
         }
-        
+
         $this->db->query($sql);
         if (!isset($obj->id)) {
             $obj->id = $this->db->lastInsertId();
