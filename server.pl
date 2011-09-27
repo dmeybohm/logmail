@@ -1,56 +1,53 @@
 #!/usr/bin/perl
 
+# NOTE: php must be on the path, and I think it has to be "exported" from bash
+# in order for this to work.
+
 # TODO: Make sure we don't run if apache is set up to interpret .pl files
 
 use strict;
 use Carp;
 use Net::SMTP::Server;
-use Net::SMTP::Server::Client;
+use Net::SMTP::Server::Client2;
+use File::Basename;
+use Cwd;
+
+my $path = Cwd::abs_path(dirname(__FILE__)) . "/";
 #use Net::SMTP::Server::Relay;
 
 my $port = 2525;
-my $server = new Net::SMTP::Server('localhost', $port) ||
+my $server = Net::SMTP::Server->new('127.0.0.1', $port) ||
     croak("Unable to handle client connection: $!\n");
 print "Listening on localhost:$port\n";
 
-while(my $conn = $server->accept()) {
-        # We can perform all sorts of checks here for spammers, ACLs,
-        # and other useful stuff to check on a connection.
+my $conn;
+while($conn = $server->accept()) {
+   if (!fork) { 
+	handle_client($conn);
+	$conn->close;
+	exit;
+   }
+   $conn->close;
+};
+          
+sub handle_client {
+	my $conn = shift;
+	my $count = 'aaa';
+	my $client = new Net::SMTP::Server::Client2($conn) ||
+	croak("Unable to handle client: $!\n");
 
-	print "Got Connection\n";
+	$client->greet; # this is new
 
-        # Handle the client's connection and spawn off a new parser.
-        # This can/should be a fork() or a new thread,
-        # but for simplicity...
-        my $client = new Net::SMTP::Server::Client($conn) ||
-        croak("Unable to handle client connection: $!\n");
-
-        # Process the client.  This command will block until
-        # the connecting client completes the SMTP transaction.
-        if (!$client->process) {
-		print "Client aborted connection\n";
-		next;
+	while($client->get_message){ # this is different
+		log_message($client, $client->{MSG});
+		$client->okay("message saved for relay"); # this is new
 	}
-	else {
-		print "Client completed connection\n";
-		print "Message: ", $client->{MSG}, "\n";
-	}
-
-        # In this simple server, we're just relaying everything
-        # to a server.  If a real server were implemented, you
-        # could save email to a file, or perform various other
-        # actions on it here.
-        #my $relay = new Net::SMTP::Server::Relay($client->{FROM},
-        #                                     $client->{TO},
-        #                                     $client->{MSG});
-
-        log_message($client, $client->{MSG});
 }
 
 sub log_message {
-        my ($client, $msg) = @_;
-        open(my $fd, "| php ./enter-message.php") 
-                or die("Failed executing enter-message.php.  Check that the path to php is in the PATH variable");
-        print $fd $msg or die("Failed writing");
-        close $fd;
+	my ($client, $msg) = @_;
+	open(my $fd, "| php ./enter-message.php") 
+		or die("Failed executing enter-message.php.  Check that the path to php is in the PATH variable");
+	print $fd $msg or die("Failed writing");
+	close $fd;
 }
