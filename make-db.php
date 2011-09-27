@@ -7,4 +7,8 @@ try {
     var_dump($e);
     exit;
 }
-chmod('./mail.sqlite', 0666);
+if (chmod($dbconfig['db'], 0666) === false)
+{
+	echo "Error changing permissions";
+	exit;
+}
