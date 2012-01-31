@@ -14,10 +14,8 @@ if (strpos($headers['content-transfer-encoding'], 'quoted-printable') !== false)
     $content = quoted_printable_decode($content);
 }
 
-if (strpos($headers['content-type'], 'charset=') !== false) {
-    if (preg_match('/charset=([^ ]+)/', $headers['content-type'], $matches)) {
-        $charset = strtoupper($matches[1]);
-    }
+if (preg_match('/charset=([^ ]+)/', $headers['content-type'], $matches)) {
+    $charset = strtoupper($matches[1]);
 }
 
 if (strpos($headers['content-type'], 'text/html') !== false) {
