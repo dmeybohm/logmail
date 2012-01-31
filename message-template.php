@@ -6,8 +6,14 @@ foreach ($headers as $key => $value) {
 	echo ucfirst($key), ": ", htmlentities($value), "<br />";
 }
 echo "<br />";
-//if (strpos($headers['content-type'], 'text/html') !== false) {
-//	echo $message->getContent();
-//} else {
-	echo htmlentities($message->getContent());
-//}
+$content = $message->getContent();
+if (strpos($headers['content-transfer-encoding'], 'quoted-printable') !== false) {
+    $content = quoted_printable_decode($content);
+}
+if (strpos($headers['content-type'], 'text/html') !== false) {
+    echo '</pre>';
+    echo htmlentities($content);
+    echo '<pre>';
+} else {
+	echo htmlentities($content);
+}
