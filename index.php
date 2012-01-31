@@ -5,7 +5,9 @@ $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::
 ?>
 <!doctype html>
 <html>
-    <head></head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body>
     <h1>Logmail</h1>
     <?php if (empty($messages)): ?>
@@ -21,8 +23,8 @@ $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::
 		echo "Failed parsing message, outputing as raw:<br />";
         echo htmlentities($email->message);
     }
-    ?>
-    </pre>
+?>
+</pre>
     <br />
     <?php endforeach; ?>
     <?php endif; ?>
