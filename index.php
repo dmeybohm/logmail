@@ -7,6 +7,7 @@ $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Logmail</h1>
