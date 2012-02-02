@@ -10,23 +10,22 @@ $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Logmail</h1>
+    <h1>logmail</h1>
     <?php if (empty($messages)): ?>
     <p>No messages sent yet</p>
     <?php else: ?>
-    <?php foreach ($messages as $email): ?>
-    <h2>Message #<?= $email->id; ?>: </h2>
-<pre>
-<?php
+    <?php foreach ($messages as $i => $email): ?>
+    <div class="message<?php echo $i == 0 ? ' latest' : ''; ?>">
+        <h2>message #<?= $email->id; ?></h2>
+<pre class="content"><?php
     try {
 		require 'message-template.php';
     } catch (Exception $e) {
 		echo "Failed parsing message, outputing as raw:<br />";
         echo htmlentities($email->message);
     }
-?>
-</pre>
-    <br />
+?></pre>
+    </div>
     <?php endforeach; ?>
     <?php endif; ?>
 </body>
