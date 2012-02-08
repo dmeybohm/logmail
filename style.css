@@ -1,18 +1,18 @@
 body {
-	max-width: 990px;
-	background: #ddd;
-	color: #232;
-	margin: 0 auto;
-	padding: 0;
+    max-width: 990px;
+    background: #ddd;
+    color: #232;
+    margin: 0 auto;
+    padding: 0;
 }
 
 h1 {
-	background: #ff0084;
-	color: #fff;
-	font-size: 16px;
-	font-family: helvetica;
-	margin: 0 0 63px 0;
-	padding: 5px 0 5px 8px;
+    background: #ff0084;
+    color: #fff;
+    font-size: 16px;
+    font-family: Consolas, helvetica;
+    margin: 0 0 63px 0;
+    padding: 2px 7px;
     border: 1px solid #ff0084;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -20,43 +20,44 @@ h1 {
 
 /* from http://www.longren.org/wrapping-text-inside-pre-tags/ */
 pre {
-	white-space: pre-wrap;       /* css-3 */
-	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-	white-space: -pre-wrap;      /* Opera 4-6 */
-	white-space: -o-pre-wrap;    /* Opera 7 */
-	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    font-family: consolas, courier;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 .message {
-    background: #ccc;
-	margin-bottom: 0.8em;
+    background: #eee;
+    margin-bottom: 1.2em;
 }
 
 .message .content {
-	margin: 0;
-	border-bottom: 1px solid #999;
-	border-right: 1px solid #999;
-	border-left: 1px solid #999;
-	padding: 5px;
+    margin: 0;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
+    border-left: 1px solid #999;
+    padding: 5px;
 }
 
 .message.latest .content {
-	border-color: #ff0084;
+    border-color: #ff0084;
 }
 
 .message.latest h2 {
-	background: #ff0084;
-	border: 1px solid #ff0084;
+    background: #ff0084;
+    border: 1px solid #ff0084;
 }
 
 .message h2 {
-	background: #999;
-	border: 1px solid #999;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
-	color: #fff;
-	margin: 0;
-	font-size: 16px;
-	font-family: helvetica;
-	padding: 2px 7px;
+    background: #999;
+    border: 1px solid #999;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+    font-family: consolas, helvetica;
+    padding: 2px 7px;
 }
