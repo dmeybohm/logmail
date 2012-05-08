@@ -12,7 +12,8 @@ if (!file_exists(dirname($config['db']))) {
 $dbdir = dirname($config['db']);
 if (chmod($dbdir, 0755) === false ||
     touch($dbdir) === false || 
-    chmod($dbdir, 0777) === false)
+    chmod($dbdir, 0777) === false ||
+    chmod($config['db'], 0666) === false)
 {
 	echo "Error changing permissions on {$dbdir}\n";
 	exit;

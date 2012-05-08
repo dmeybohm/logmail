@@ -2,6 +2,8 @@
 <?php
 
 require dirname(dirname(__FILE__)) . '/lib/init.php';
+ini_set('error_log', $config['log']);
+ini_set('log_errors', 'On');
 
 $msg = stream_get_contents(STDIN);
 $stmt = $db->prepare("INSERT INTO message (message) VALUES(:message)");
