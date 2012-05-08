@@ -1,5 +1,5 @@
 <?php
-require 'start.php';
+require dirname(__FILE__).'/lib/init.php';
 
 $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::FETCH_OBJ);
 $template = new Logmail_Message_Template;

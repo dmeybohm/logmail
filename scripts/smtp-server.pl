@@ -1,8 +1,5 @@
 #!/usr/bin/perl
 
-# NOTE: php must be on the path, and I think it has to be "exported" from bash
-# in order for this to work.
-
 # TODO: Make sure we don't run if apache is set up to interpret .pl files
 
 use strict;
@@ -12,8 +9,8 @@ use Net::SMTP::Server::Client2;
 use File::Basename;
 use Cwd;
 
-my $path = Cwd::abs_path(dirname(__FILE__)) . "/";
-#use Net::SMTP::Server::Relay;
+my $path = dirname(dirname(Cwd::abs_path(__FILE__))) . "/";
+chdir($path) || croak("Unable to change dir");
 
 my $port = 2525;
 my $server = Net::SMTP::Server->new('127.0.0.1', $port) ||
@@ -46,8 +43,8 @@ sub handle_client {
 
 sub log_message {
 	my ($client, $msg) = @_;
-	open(my $fd, "| php ./enter-message.php") 
-		or die("Failed executing enter-message.php.  Check that the path to php is in the PATH variable");
+	open(my $fd, "| ./sendmail") 
+		or die("Failed executing ./sendmail.  Check that the path to php is in the PATH variable");
 	print $fd $msg or die("Failed writing");
 	close $fd;
 }

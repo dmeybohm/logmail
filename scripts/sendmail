@@ -1,7 +1,9 @@
+#!/usr/bin/env php
 <?php
 
-require 'db.php';
+require dirname(dirname(__FILE__)) . '/lib/init.php';
 
 $msg = stream_get_contents(STDIN);
 $stmt = $db->prepare("INSERT INTO message (message) VALUES(:message)");
 $stmt->execute(array(':message' => $msg));
+exit(0);
