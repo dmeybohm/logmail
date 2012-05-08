@@ -14,6 +14,7 @@ $template = new Logmail_Message_Template;
     <h1>logmail</h1>
     <?php if (empty($messages)): ?>
     <p>No messages sent yet</p>
+    <a href="test.php">Send a test message</a>
     <?php else: ?>
     <?php foreach ($messages as $i => $email): ?>
     <div class="message<?php echo $i == 0 ? ' latest' : ''; ?>">
