@@ -22,8 +22,8 @@ else
     echo "Updated permissions on {$dbdir} successfully.\n";
 }
 
-if (chmod(dirname($config['log']), 0755) === false ||
-    touch($config['log']) === false || 
+
+if (touch($config['log']) === false || 
     chmod($config['log'], 0666) === false)
 {
 	echo "Error changing permissions";
