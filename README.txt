@@ -11,7 +11,7 @@ setup a virtual host or run  the document root as usual.
 
 Create the sqlite database and set permissions:
 
-    $ php setup.php
+    $ scripts/setup
 
 
 Configure PHP
@@ -44,12 +44,12 @@ change the port to 2525.
 
 Extract the files to a web server's directory.  Run:
 
-	$ php setup.php
-	$ perl server/server.pl
+	$ scripts/setup
+	$ scripts/smtp-server
 
 in a separate window.  In another window,
 
-	$ php testmail.php
+	$ php test.php
 
 Then load the directory you extracted in your web browser, and you should
 see the first test message.
