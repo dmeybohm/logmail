@@ -5,25 +5,26 @@ Setting up onUnix/Mac OS
 
 Initialize
 ----------
+Extract the files to a web server's document root.
 
-Extract the files to a web server's directory.  Then either
-setup a virtual host or run  the document root as usual.
-
-Create the sqlite database and set permissions:
+Create the sqlite database and set permissions by running
+this script::
 
     $ scripts/setup
 
 
 Configure PHP
 -------------
-Configure the sendmail_path variable to point to "scripts/sendmail".  This is a
-PHP script that will send the output of the mail() function to the SQLite
-database.
+Configure the sendmail_path variable to point to scripts/sendmail:
+
+    sendmail_path = "/path/to/logmail/scripts/sendmail".  
+
+This is a PHP script that will send the output of the mail() function to the
+SQLite database.
 
 
 Test
 ----
-
 Try to send a test email.  If you set up on localhost for
 example run:
 
@@ -38,8 +39,7 @@ Also, you can test it from the command line:
 
 View Messages
 ------------
-
-Go to
+Go to:
 
     http://localhost/logmail/
 
@@ -55,16 +55,19 @@ CPAN packages.
 
 Initialize
 ----------
-
+Run:
 	$ scripts/setup
 
 
 Configure PHP
 -------------
-Change your php.ini to use sendmail_from = "localhost" and
-change the port to 2525, the port the SMTP server will
-listen on.
+Change your php.ini to use SMTP = "localhost" and
+change the port to 2525 inside php.ini:
 
+    SMTP = localhost
+    smtp_port = 2525
+
+Port 2525 is hard-coded in the perl SMTP server script.
 
 Run/Configure Server
 --------------------
@@ -81,23 +84,15 @@ In another window,
 
 	$ php test.php
 
-Also make sure the mail() function is working from a web browser.
-Load:
+If that works, you'll Also make sure the mail() function is working from a web
+browser.  Load:
 
     http://localhost/logmail/test.php
 
 And look for a "sent mail successfully" message.
 
-Finally, load
-
-    http://localhost/logmail/
-
-Then load the directory you extracted in your web browser, and you should
-see the first test message.
-
 View Messages
-------------
-
+-------------
 Go to
 
     http://localhost/logmail/
