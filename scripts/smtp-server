@@ -9,7 +9,7 @@ use Net::SMTP::Server::Client2;
 use File::Basename;
 use Cwd;
 
-my $path = dirname(dirname(Cwd::abs_path(__FILE__))) . "/";
+my $path = dirname(Cwd::abs_path(__FILE__)) . "/";
 chdir($path) || croak("Unable to change dir");
 
 my $port = 2525;
