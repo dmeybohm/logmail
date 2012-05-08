@@ -9,12 +9,17 @@ if (!file_exists(dirname($config['db']))) {
     }
 }
  
-if (chmod(dirname($config['db']), 0755) === false ||
-    touch($config['db']) === false || 
-    chmod($config['db'], 0777) === false)
+$dbdir = dirname($config['db']);
+if (chmod($dbdir, 0755) === false ||
+    touch($dbdir) === false || 
+    chmod($dbdir, 0777) === false)
 {
-	echo "Error changing permissions";
+	echo "Error changing permissions on {$dbdir}\n";
 	exit;
+}
+else
+{
+    echo "Updated permissions on {$dbdir} successfully.\n";
 }
 
 if (chmod(dirname($config['log']), 0755) === false ||
@@ -24,11 +29,18 @@ if (chmod(dirname($config['log']), 0755) === false ||
 	echo "Error changing permissions";
 	exit;
 }
+else
+{
+    echo "Set permission on {$config['log']} successfully.\n";
+}
 
-require dirname(__FILE__).'/lib/init.php';
+require dirname(dirname(__FILE__)).'/lib/init.php';
 try {
     $db->query("CREATE TABLE IF NOT EXISTS message (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)");
 } catch (Exception $e) {
     var_dump($e);
     exit;
 }
+
+echo "Created sqlite db tables successfully.\n";
+exit(0);
