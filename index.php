@@ -2,6 +2,7 @@
 require 'start.php';
 
 $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::FETCH_OBJ);
+$template = new Logmail_Message_Template;
 ?>
 <!doctype html>
 <html>
@@ -19,7 +20,7 @@ $messages = $db->query("SELECT * FROM message ORDER BY id DESC")->fetchAll(PDO::
         <h2>message #<?= $email->id; ?></h2>
 <pre class="content"><?php
     try {
-		require 'message-template.php';
+        $template->out($email->message);
     } catch (Exception $e) {
 		echo "Failed parsing message, outputing as raw:<br />";
         echo htmlentities($email->message);
