@@ -22,7 +22,6 @@ steps you need to take.
 Setting up on Unix/Mac OS
 =========================
 
-
 Configure PHP
 -------------
 Configure the sendmail_path variable to point to scripts/sendmail:
