@@ -14,7 +14,7 @@ class Logmail_Message_Template {
             echo ucfirst($key), ": ", htmlentities($value), "<br />";
         }
 
-        echo $header, "<br />";
+        echo "<br />";
 
         if (strpos($headers['content-transfer-encoding'], 'quoted-printable') !== false) {
             $content = quoted_printable_decode($content);
