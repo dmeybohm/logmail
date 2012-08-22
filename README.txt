@@ -101,6 +101,7 @@ Go to
 
     http://localhost/logmail/
 
-To view the messages currently stored in the database.  If you it's
-setup correctly, should be able to add to it by using the PHP mail()
+To view the messages currently stored in the database.  If it's setup
+correctly, you should be able to see any messages sent with the PHP
+mail() function.
 function.
