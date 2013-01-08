@@ -3,7 +3,7 @@ A web application for logging mail sent from PHP.
 Installing
 ==========
 
-Extract the files to a web server's document root.
+Create a virtual host, or dump the files into your web server's document root.
 
 Create the sqlite database and set permissions by running this script:
 
@@ -11,12 +11,6 @@ Create the sqlite database and set permissions by running this script:
 
 This will create a world-writeable directory "var" in the same directory
 as you extracted the files along with a world-writeable SQLite database.
-If you don't like this, you can change it manually, but you'll need to
-make sure that the directory and database itself are writeable by
-whatever users you want to be able to send mail.
-
-After this step, it depends which platform you are on what configuration
-steps you need to take.
 
 
 Setting up on Unix/Mac OS
@@ -104,4 +98,3 @@ Go to
 To view the messages currently stored in the database.  If it's setup
 correctly, you should be able to see any messages sent with the PHP
 mail() function.
-function.
