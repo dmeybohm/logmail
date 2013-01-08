@@ -22,12 +22,13 @@ else
     echo "Updated permissions on {$dbdir} successfully.\n";
 }
 
-$sqlite = sqlite_open($config['db'], 0666);
+$sqlite = new SQLite3($config['db'], SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 if ($sqlite === false)
 {
     echo "error creating sqlite db\n";
     exit;
 }
+$sqlite->close();
 
 if (touch($config['log']) === false || 
     chmod($config['log'], 0666) === false)
