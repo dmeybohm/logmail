@@ -18,7 +18,7 @@ $template = new Logmail_Message_Template;
     <?php else: ?>
     <?php foreach ($messages as $i => $email): ?>
     <div class="message<?php echo $i == 0 ? ' latest' : ''; ?>">
-        <h2>message #<?= $email->id; ?></h2>
+        <h2>message #<?php echo $email->id; ?></h2>
 <pre class="content"><?php
     try {
         $template->out($email->message);
