@@ -12,8 +12,7 @@ if (!file_exists(dirname($config['db']))) {
 $dbdir = dirname($config['db']);
 if (chmod($dbdir, 0755) === false ||
     touch($dbdir) === false || 
-    chmod($dbdir, 0777) === false ||
-    chmod($config['db'], 0666) === false)
+    chmod($dbdir, 0777) === false)
 {
 	echo "Error changing permissions on {$dbdir}\n";
 	exit;
@@ -23,6 +22,12 @@ else
     echo "Updated permissions on {$dbdir} successfully.\n";
 }
 
+$sqlite = sqlite_open($config['db'], 0666);
+if ($sqlite === false)
+{
+    echo "error creating sqlite db\n";
+    exit;
+}
 
 if (touch($config['log']) === false || 
     chmod($config['log'], 0666) === false)
